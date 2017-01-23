@@ -30,10 +30,14 @@
                 </td>
                 <td>{{$user->created_at->diffForHumans()}}</td>
                 <td>{{$user->updated_at->diffForHumans()}}</td>
-                <td>{{$user->info->deviceBrand->name}}</td>
-                <td>{{$user->info->osName->name . '-' . $user->info->osVersion->version }}</td>
-                <td>{{$user->info->is_activated}}</td>
-                <td>{{$user->info->activate_date}}</td>
+
+                @if($user->info)
+                    <td>{{$user->info->deviceBrand->name}}</td>
+                    <td>{{$user->info->osName->name . '-' . $user->info->osVersion->version }}</td>
+                    <td>{{$user->info->is_activated}}</td>
+                    <td>{{$user->info->activate_date}}</td>
+                @endif
+
 
             </tr>
 
@@ -42,4 +46,4 @@
         </tbody>
     </table>
 
-    @stop
+@stop
