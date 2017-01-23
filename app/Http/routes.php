@@ -27,14 +27,16 @@ Route::group(['middleware' => 'auth'], function () {
         echo 'در حال ساخت و ساز';
     });
 
-    Route::get('/', function () {
-        return view('admin.index');
+    Route::get('/' , function (){
+        return view('welcome');
     });
 
 });
 
 
 Route::group(['middleware' => 'isAdmin'], function () {
+
+    Route::resource('/admin/users', 'AdminUsersController');
 
     Route::get('/home', 'HomeController@index');
 

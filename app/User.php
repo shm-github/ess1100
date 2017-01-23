@@ -45,4 +45,9 @@ class User extends Authenticatable
 
         return false;
     }
+
+
+    public function info(){
+       return $this->hasOne('App\UserInformation');
+    }
 }
