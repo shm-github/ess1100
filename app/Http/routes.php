@@ -11,14 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::auth();
+
+
+Route::group(['middleware' => 'auth'], function () {
+
+//    Route::get('/dashboard', function(){
+//
+//        return view('admin_dashboard');
+//    });
+
+    //fake admin page
+    Route::get('/admin_page' , function (){
+        echo 'در حال ساخت و ساز';
+    });
+
+    Route::get('/', function () {
+        return view('admin.index');
+    });
+
 });
 
-Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'isAdmin'], function () {
 
-Route::auth();
+    Route::get('/home', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index');
+    Route::resource('/week', 'WeekController');
+
+    Route::resource('/date', 'DateController');
+
+    Route::resource('/word', 'WordController');
+
+
+});
+
