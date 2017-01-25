@@ -15,7 +15,7 @@ class CreateUserInformationsTable extends Migration {
 		Schema::create('user_informations', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('user_id')->index();
 			$table->string('device_IMEI');
 			$table->string('screen_resolution');
 			$table->integer('device_brand_id');

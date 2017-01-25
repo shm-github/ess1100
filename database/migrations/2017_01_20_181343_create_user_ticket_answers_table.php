@@ -15,7 +15,7 @@ class CreateUserTicketAnswersTable extends Migration {
 		Schema::create('user_ticket_answers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('user_id')->index();
 			$table->integer('ticket_id');
 			$table->string('ticket_answer');
             $table->softDeletes();

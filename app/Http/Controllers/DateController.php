@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Date;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,16 +17,20 @@ class DateController extends Controller
     public function index()
     {
         //
+        $dates = Date::all();
+        return view('admin.dates.index' , compact('dates'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param int $weekId
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($weekId)
     {
         //
+        return view('admin.dates.create' , compact('weekId'));
     }
 
     /**
@@ -34,9 +39,12 @@ class DateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
         //
+
+        Date::create($request->all());
+        redirect('dates');
     }
 
     /**
@@ -48,6 +56,8 @@ class DateController extends Controller
     public function show($id)
     {
         //
+
+        return view('admins.dates.show' );
     }
 
     /**

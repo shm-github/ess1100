@@ -15,7 +15,7 @@ class CreateRequestsTable extends Migration {
 		Schema::create('requests', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->index();
             $table->integer('requestable_id');
             $table->string('requestable_type');
 			$table->softDeletes();

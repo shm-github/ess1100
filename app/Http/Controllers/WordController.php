@@ -48,6 +48,8 @@ class WordController extends Controller
     public function show($id)
     {
         //
+
+        return view('admin.words.show');
     }
 
     /**

@@ -15,7 +15,7 @@ class CreateMainContextsTable extends Migration {
 		Schema::create('main_contexts', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('date_id');
+			$table->integer('date_id')->index();
 			$table->string('title_eng');
 			$table->string('title_per');
 			$table->text('context_per');

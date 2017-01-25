@@ -15,7 +15,7 @@ class CreateUserBackupsTable extends Migration {
 		Schema::create('user_backups', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('user_id')->index();
 
 			$table->timestamps();
 		});

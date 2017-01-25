@@ -15,7 +15,7 @@ class CreateWordFormsTable extends Migration {
 		Schema::create('word_forms', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('word_id');
+			$table->integer('word_id')->index();
 			$table->string('word');
 			$table->string('sound_file_name');
 			$table->boolean('is_verb');

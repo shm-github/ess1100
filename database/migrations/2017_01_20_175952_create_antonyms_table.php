@@ -15,7 +15,7 @@ class CreateAntonymsTable extends Migration {
 		Schema::create('antonyms', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->integer('word_id');
+            $table->integer('word_id')->index();
             $table->string('text');
             $table->string('file_name');
 			$table->timestamps();

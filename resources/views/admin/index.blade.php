@@ -7,7 +7,6 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Role</th>
             <th>Created at</th>
             <th>Updated at</th>
             <th>Phone</th>
@@ -22,12 +21,6 @@
             <tr>
                 <td><strong>{{$user->name}}</strong></td>
                 <td>{{$user->email}}</td>
-                <td>
-                    @foreach($user->roles as $role)
-
-                        < {{$role->role}} >
-                    @endforeach
-                </td>
                 <td>{{$user->created_at->diffForHumans()}}</td>
                 <td>{{$user->updated_at->diffForHumans()}}</td>
 

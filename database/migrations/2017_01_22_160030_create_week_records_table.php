@@ -15,8 +15,9 @@ class CreateWeekRecordsTable extends Migration {
 		Schema::create('week_records', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('week_id');
+			$table->integer('week_id')->index();
             $table->integer('progress');
+            $table->integer('update_id');
 			$table->timestamps();
 		});
 	}

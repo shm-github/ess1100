@@ -15,7 +15,7 @@ class CreateDatesTable extends Migration
         Schema::create('dates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('day_number');
-            $table->integer('week_id');
+            $table->integer('week_id')->index();
             $table->timestamps();
         });
     }

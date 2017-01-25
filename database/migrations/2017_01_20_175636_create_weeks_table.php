@@ -16,6 +16,7 @@ class CreateWeeksTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('week_number');
+			$table->integer('update_id');
 			$table->timestamps();
 		});
 	}

@@ -14,7 +14,7 @@ class CreateOsNamesTable extends Migration
     {
         Schema::create('os_names', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->index();
         });
     }
 

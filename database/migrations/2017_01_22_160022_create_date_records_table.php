@@ -15,7 +15,7 @@ class CreateDateRecordsTable extends Migration {
 		Schema::create('date_records', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('date_id');
+			$table->integer('date_id')->index();
 			$table->integer('score');
 			$table->timestamps();
 		});

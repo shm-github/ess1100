@@ -15,7 +15,7 @@ class CreateWordSearchDeletedWordsTable extends Migration {
 		Schema::create('word_search_deleted_words', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('word_search_id');
+			$table->integer('word_search_id')->index();
 			$table->integer('paragraph_number');
 			$table->text('deleted_word');
             $table->text('hint');

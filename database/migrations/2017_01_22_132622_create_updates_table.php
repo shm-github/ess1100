@@ -16,8 +16,7 @@ class CreateUpdatesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('version');
-			$table->integer('version_id');
-			$table->boolean('is_published');
+			$table->boolean('is_published')->index();
 			$table->timestamps();
 		});
 	}

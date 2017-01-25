@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\AppUser;
 use App\DeviceBrand;
 use App\OsName;
 use App\OsVersion;
 use App\Role;
-use App\User;
 use App\UserInformation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+
 
 class AdminUsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         //
-        $users = User::all();
+        $users = AppUser::all();
 
         return view('admin.index' , compact('users'));
     }
@@ -31,7 +33,7 @@ class AdminUsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -43,13 +45,14 @@ class AdminUsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email'=> 'required' ,
             'password' => 'required',
@@ -62,17 +65,31 @@ class AdminUsersController extends Controller
             'active_state' => 'required'
         ]);
 
+        if ($validator->fails()) {
+           return $this->emptyFieldError($validator->messages());
+        }
+
         $input = $request->all();
 
-        $user = User::create([
+
+        $user = AppUser::whereName($input['name'])->get();
+
+
+
+        if(count($user) > 0)
+            return $this->userNameExistsError();
+
+
+
+        $user = AppUser::create([
             'name' => $input['name'],
             'email'=> $input['email'],
             'password' => $input['password']
         ]);
 
-        $role = Role::whereRole('app_user')->first();
-
-        $user ->roles()->save($role);
+//        $role = Role::whereRole('app_user')->first();
+//
+//        $user ->roles()->save($role);
 
 
 
@@ -115,14 +132,14 @@ class AdminUsersController extends Controller
 
         $user->info()->save($info);
 
-        return redirect('admin/users');
+        return $this->userCreateSuccessfully();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -133,7 +150,7 @@ class AdminUsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -145,7 +162,7 @@ class AdminUsersController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -156,10 +173,12 @@ class AdminUsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
         //
     }
+
+
 }

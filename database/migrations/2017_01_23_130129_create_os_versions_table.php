@@ -14,7 +14,7 @@ class CreateOsVersionsTable extends Migration
     {
         Schema::create('os_versions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('version');
+            $table->string('version')->index();
         });
     }
 

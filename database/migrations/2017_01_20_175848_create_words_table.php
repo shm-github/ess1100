@@ -16,8 +16,8 @@ class CreateWordsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('word');
-			$table->integer('week_id');
-			$table->integer('date_id');
+			$table->integer('week_id')->index();
+			$table->integer('date_id')->index();
 			$table->string('per_def');
 			$table->string('eng_def');
 			$table->timestamps();

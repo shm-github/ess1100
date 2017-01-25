@@ -22,13 +22,9 @@ Route::group(['middleware' => 'auth'], function () {
 //        return view('admin_dashboard');
 //    });
 
-    //fake admin page
-    Route::get('/admin_page' , function (){
-        echo 'در حال ساخت و ساز';
-    });
 
     Route::get('/' , function (){
-        return view('welcome');
+        return view('home');
     });
 
 });
@@ -36,15 +32,24 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'isAdmin'], function () {
 
-    Route::resource('/admin/users', 'AdminUsersController');
+    Route::resource('/users', 'AdminUsersController');
+
+    Route::resource('updates', 'UpdateController');
 
     Route::get('/home', 'HomeController@index');
 
-    Route::resource('/week', 'WeekController');
+    Route::resource('/weeks', 'WeekController');
 
-    Route::resource('/date', 'DateController');
+    Route::resource('/dates', 'DateController' , ['except' => [
+        'create'
+    ]]);
+    Route::get('dates/create/{weekId}' , 'DateController@create');
 
-    Route::resource('/word', 'WordController');
+    Route::resource('/words', 'WordController', ['except' => [
+        'create'
+    ]]);
+
+    Route::get('words/create/{dateId}' , 'WordController@create');
 
 
 });

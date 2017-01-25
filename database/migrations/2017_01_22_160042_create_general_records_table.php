@@ -15,7 +15,7 @@ class CreateGeneralRecordsTable extends Migration {
 		Schema::create('general_records', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('progress');
+			$table->integer('progress')->index();
 			$table->timestamps();
 		});
 	}

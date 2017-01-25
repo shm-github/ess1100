@@ -14,7 +14,7 @@ class CreateDeivceBrandsTable extends Migration
     {
         Schema::create('device_brands', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->index();
 
         });
     }

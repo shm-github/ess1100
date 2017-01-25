@@ -15,7 +15,7 @@ class CreateSentencesTable extends Migration {
 		Schema::create('sentences', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('word_id');
+			$table->integer('word_id')->index();
 			$table->text('sentence_eng');
 			$table->text('sentence_per');
 			$table->string('sound_file_name');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Update;
+use App\Week;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,7 +17,10 @@ class WeekController extends Controller
      */
     public function index()
     {
-        //
+
+        $weeks = Week::all();
+
+        return view('admin.weeks.index' , compact('weeks'));
     }
 
     /**
@@ -25,7 +30,11 @@ class WeekController extends Controller
      */
     public function create()
     {
-        //
+
+
+        $updateVersions = Update::lists('version' , 'id');
+
+        return view('admin.weeks.create' ,compact('updateVersions'));
     }
 
     /**
@@ -36,7 +45,9 @@ class WeekController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Week::create($request->all());
+
+        return redirect('/weeks');
     }
 
     /**
