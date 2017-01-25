@@ -8,10 +8,12 @@ class Week extends Model
     //
     protected $fillable = ['week_number', 'update_id'];
 
+
     public function updateVersion()
     {
         return $this->belongsTo('App\Update' , 'update_id');
     }
+
 
     public function published($week)
     {
@@ -23,4 +25,8 @@ class Week extends Model
             return false;
     }
 
+
+    public function dates(){
+        return $this->hasMany('App\Date');
+    }
 }

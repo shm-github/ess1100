@@ -250,7 +250,7 @@
                         </li>
 
                         <li {{ (Request::is('*users') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('users') }}"><i class="fa fa-dashboard fa-fw"></i> Users</a>
+                            <a href="{{ url ('users') }}"><i class="fa fa-users fa-fw"></i> Users</a>
                         </li>
 
                         <li>
@@ -263,11 +263,11 @@
                                     <a href="#">updates <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="/updates/create">Create</a>
+                                            <a href="/updates/create"><i class="fa fa-plus-square-o fa-fw"></i> Create</a>
                                         </li>
 
                                         <li>
-                                            <a href="/updates">Index</a>
+                                            <a href="/updates"><i class="fa fa-paw fa-fw"></i> Index</a>
                                         </li>
 
                                     </ul>
@@ -279,11 +279,11 @@
                                     <a href="#">Weeks <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="/weeks/create">Add</a>
+                                            <a href="/weeks/create"><i class="fa fa-plus-square-o fa-fw"></i> Add</a>
                                         </li>
 
                                         <li>
-                                            <a href="/weeks">Index</a>
+                                            <a href="/weeks"><i class="fa fa-paw fa-fw"></i> Index</a>
                                         </li>
 
                                     </ul>
@@ -291,7 +291,7 @@
 
                                 {{--date section--}}
                                 <li>
-                                    <a href="/dates">Days</a>
+                                    <a href="/dates"><i class="fa fa-calendar fa-fw"></i> Days</a>
                                 </li>
 
                             </ul>

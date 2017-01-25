@@ -19,7 +19,8 @@ elixir(function(mix) {
         'resources/assets/css/font-awesome.css',
         'resources/assets/css/sb-admin-2.css',
         'resources/assets/css/timeline.css',
-        'resources/assets/css/blur-table.css'
+        'resources/assets/css/blur-table.css',
+        'resources/assets/css/metisMenu.css',
     ], 'public/css/libs.css')
     .scripts([
         'resources/assets/js/jquery.js',

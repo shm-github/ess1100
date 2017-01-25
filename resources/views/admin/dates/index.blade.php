@@ -7,6 +7,7 @@
         <tr>
             <th>Day Number</th>
             <th>Week Number</th>
+            <th>Update Day</th>
             <th>Add Word</th>
             <th>Show Words</th>
 
@@ -22,8 +23,11 @@
 
                 <td>  <a href="/dates/{{$date->id}}/edit">{{$date->week->week_number}}</a></td>
 
-                <td> <a href="/words/create/{{$date->id}}"> <button type="button" class="btn btn-warning">ADD WORD</button> </a> </td>
-                <td> <a href="/words/{{$date->id}}"> <button type="button" class="btn btn-warning">SHOW WORD</button> </a> </td>
+                <td> <a href="/dates/{{$date->id}}/edit"> <button type="button" class="btn btn-warning btn-block">Update Day</button> </a> </td>
+
+                <td> <a href="/words/create/{{$date->id}}"> <button type="button" class="btn btn-info btn-block">ADD WORD</button> </a> </td>
+
+                <td> <a href="/dates/{{$date->id}}"> <button type="button" class="btn btn-success btn-block">SHOW WORDS</button> </a> </td>
             </tr>
 
         @endforeach

@@ -51,6 +51,19 @@ Route::group(['middleware' => 'isAdmin'], function () {
 
     Route::get('words/create/{dateId}' , 'WordController@create');
 
+    Route::get('words/{wordId}/sentence' , 'WordController@createSentence');
+
+    Route::get('words/{wordId}/word_form' , 'WordController@createWordForm');
+
+    Route::post('words/store/sentence' , 'WordController@storeSentence');
+
+    Route::post('words/store/word_form' , 'WordController@storeWordForm');
+
+
+    Route::delete('words/{sentenceId}/sentence' , 'WordController@destroySentence');
+
+    Route::delete('words/{WordFormId}/word_form' , 'WordController@destroyWordForm');
+
 
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Date;
+use App\Week;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,7 +18,7 @@ class DateController extends Controller
     public function index()
     {
         //
-        $dates = Date::all();
+        $dates = Date::all()->sortByDesc('week_number');
         return view('admin.dates.index' , compact('dates'));
     }
 
@@ -55,9 +56,11 @@ class DateController extends Controller
      */
     public function show($id)
     {
-        //
+        $date = Date::find($id);
 
-        return view('admins.dates.show' );
+        $words = $date->words;
+
+        return view('admin.dates.show' ,compact('date' , 'words') );
     }
 
     /**
@@ -68,7 +71,11 @@ class DateController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $date = Date::find($id);
+
+        $weeks = Week::lists('week_number' ,'id' );
+        return view('admin.dates.edit' , compact('date' , 'weeks'));
     }
 
     /**
@@ -80,7 +87,16 @@ class DateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $date = Date::find($id);
+
+        $input = $request ->all();
+
+        $date -> day_number = $input['day_number'];
+        $date -> week_id = $input['week_id'];
+        $date -> save();
+
+
+        return redirect('dates');
     }
 
     /**

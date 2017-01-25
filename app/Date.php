@@ -17,4 +17,9 @@ class Date extends Model
     public function words(){
         return $this->hasMany('App\Word');
     }
+
+
+    public function wordsCount($date){
+        return count($date->words) ;
+    }
 }

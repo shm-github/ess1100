@@ -25,7 +25,7 @@
                     <td><a href="/updates/{{$update->id}}/edit"> False</a></td>
                 @endif
 
-                <td> <a href="/updates/{{$update->id}}/edit"> <button type="button" class="btn btn-warning">update</button> </a> </td>
+                <td> <a href="/updates/{{$update->id}}/edit"> <button type="button" class="btn btn-warning btn-block">update</button> </a> </td>
             </tr>
 
         @endforeach

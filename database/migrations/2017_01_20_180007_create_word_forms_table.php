@@ -22,6 +22,9 @@ class CreateWordFormsTable extends Migration {
 			$table->boolean('is_adv');
 			$table->boolean('is_noun');
 			$table->boolean('is_adj');
+			$table->text('sentence');
+			$table->text('sentence_per');
+			$table->text('word_def');
 			$table->timestamps();
 		});
 	}

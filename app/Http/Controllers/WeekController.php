@@ -58,7 +58,11 @@ class WeekController extends Controller
      */
     public function show($id)
     {
-        //
+        $week = Week::find($id);
+
+        $dates = $week->dates;
+
+        return view('admin.weeks.show' ,compact('dates' , 'week') );
     }
 
     /**
@@ -69,7 +73,10 @@ class WeekController extends Controller
      */
     public function edit($id)
     {
-        //
+        $week = Week::find($id);
+        $updateVersions = Update::lists('version' , 'id');
+
+        return view('admin.weeks.edit' , compact('week' , 'updateVersions'));
     }
 
     /**
@@ -81,7 +88,16 @@ class WeekController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $week = Week::find($id);
+
+        $input = $request ->all();
+
+        $week -> week_number = $input['week_number'];
+        $week -> update_id = $input['update_id'];
+        $week -> save();
+
+
+        return redirect('weeks');
     }
 
     /**
