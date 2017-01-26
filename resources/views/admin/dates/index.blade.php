@@ -7,9 +7,13 @@
         <tr>
             <th>Day Number</th>
             <th>Week Number</th>
+            <th>Word Count</th>
             <th>Update Day</th>
-            <th>Add Word</th>
-            <th>Show Words</th>
+            <th>Word</th>
+            <th>Report</th>
+            <th>Main Context</th>
+            <th>Idiom</th>
+            <th>Words</th>
 
         </tr>
         </thead>
@@ -23,11 +27,19 @@
 
                 <td>  <a href="/dates/{{$date->id}}/edit">{{$date->week->week_number}}</a></td>
 
+                <td>  <a href="/dates/{{$date->id}}/edit">{{count($date->words)}}</a></td>
+
                 <td> <a href="/dates/{{$date->id}}/edit"> <button type="button" class="btn btn-warning btn-block">Update Day</button> </a> </td>
 
-                <td> <a href="/words/create/{{$date->id}}"> <button type="button" class="btn btn-info btn-block">ADD WORD</button> </a> </td>
+                <td> <a href="/words/create/{{$date->id}}"> <button type="button" class="btn btn-info btn-block">ADD Word</button> </a> </td>
 
-                <td> <a href="/dates/{{$date->id}}"> <button type="button" class="btn btn-success btn-block">SHOW WORDS</button> </a> </td>
+                <td> <a href="/dates/{{$date->id}}"> <button type="button" class="btn btn-info btn-block">Complete Day Report</button> </a> </td>
+
+                <td> <a href="/words/create/context/{{$date->id}}"> <button type="button" class="btn btn-info btn-block">ADD Main Context</button> </a> </td>
+
+                <td> <a href="/words/create/idiom/{{$date->id}}"> <button type="button" class="btn btn-info btn-block">ADD Idiom</button> </a> </td>
+
+                <td> <a href="/dates/words/{{$date->id}}"> <button type="button" class="btn btn-success btn-block">SHOW Words</button> </a> </td>
             </tr>
 
         @endforeach

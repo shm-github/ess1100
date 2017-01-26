@@ -18,6 +18,14 @@ class Date extends Model
         return $this->hasMany('App\Word');
     }
 
+    public function idiom(){
+        return $this->hasOne('App\Idiom');
+    }
+
+    public function context(){
+        return $this->hasOne('App\Main_context');
+    }
+
 
     public function wordsCount($date){
         return count($date->words) ;

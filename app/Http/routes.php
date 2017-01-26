@@ -40,10 +40,18 @@ Route::group(['middleware' => 'isAdmin'], function () {
 
     Route::resource('/weeks', 'WeekController');
 
+
+    //dates routes
     Route::resource('/dates', 'DateController' , ['except' => [
         'create'
     ]]);
     Route::get('dates/create/{weekId}' , 'DateController@create');
+
+    Route::get('dates/words/{dateId}' , 'DateController@showWords');
+
+
+
+
 
     Route::resource('/words', 'WordController', ['except' => [
         'create'
@@ -65,5 +73,28 @@ Route::group(['middleware' => 'isAdmin'], function () {
     Route::delete('words/{WordFormId}/word_form' , 'WordController@destroyWordForm');
 
 
+    //main context and idiom routes
+    Route::get('words/create/context/{dateId}' , 'WordController@createContext');
+
+    Route::get('words/create/idiom/{dateId}' , 'WordController@createIdiom');
+
+    Route::post('words/store/context' , 'WordController@storeContext');
+
+    Route::post('words/store/idiom' , 'WordController@storeIdiom');
+
+    Route::delete('words/{contextId}/context' , 'WordController@destroyContext');
+
+    Route::delete('words/{idiomId}/idiom' , 'WordController@destroyIdiom');
 });
+
+
+
+
+
+
+
+
+
+
+
 

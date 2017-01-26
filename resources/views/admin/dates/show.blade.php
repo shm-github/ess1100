@@ -1,38 +1,220 @@
 @extends('layouts.dashboard')
-@section('page_heading','Day '.$date->day_number . ' Words')
+@section('page_heading','Day '.$date->day_number . ' complete report')
 @section('section')
 
-    <table>
-        <thead>
-        <tr>
-            <th>Word</th>
-            <th>per_def</th>
-            <th>Update</th>
-            <th>Words Index Page</th>
-            <th>Word Component</th>
-        </tr>
-        </thead>
-        <tbody>
 
 
-        @foreach($words as $word)
+    {{--idiom--}}
 
-            <tr>
-                <td><strong>{{$word->word}}</strong></td>
+    <h1>IDIOM</h1>
+    <div class="col-sm-12 alert {{$alerts[(rand()%3)]}}">
+        <div class="row ">
+            <div class="col-lg-10 ">
 
-                <td> {{$word->per_def}}</td>
+                <div class="alert alert-info">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Idiom(english)</th>
+                            <th>Example(english)</th>
+                            <th>Idiom(persian)</th>
+                            <th>Example(persian)</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><strong>{{$date->idiom->idiom_eng}}</strong></td>
+                            <td> {{$date->idiom->idiom_eng_def}}</td>
+                            <td> {{$date->idiom->idiom_per}}</td>
+                            <td> {{$date->idiom->idiom_per_def}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <td> <a href="/words/{{$word->id}}/edit"> <button type="button" class="btn btn-warning btn-block">update Word</button> </a> </td>
-
-                <td> <a href="/words/"> <button type="button" class="btn btn-warning btn-block">All Words</button> </a> </td>
-
-                <td> <a href="/words/{{$date->id}}"> <button type="button" class="btn btn-info btn-block">Show Components</button> </a> </td>
 
 
-            </tr>
-        @endforeach
+            </div>
+            <div class="col-lg-2">
 
-        </tbody>
-    </table>
+                <div class="form-group">
+                    <img height="200"  src="/idiom_images/{{$date->idiom->image}}" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <h1>MAIN CONTEXT</h1>
+    {{--main_context--}}
+    <div class="col-sm-12 alert {{$alerts[(rand()%3)]}}">
+        <div class="row ">
+            <div class="col-lg-12 ">
+
+                <div class="alert alert-info">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Idiom(english)</th>
+                            <th>Example(english)</th>
+                            <th>Idiom(persian)</th>
+                            <th>Example(persian)</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><strong>{{$date->context->title_eng}}</strong></td>
+                            <td> {{$date->context->context_eng}}</td>
+                            <td> {{$date->context->title_per}}</td>
+                            <td> {{$date->context->context_per}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <h1>WORDS</h1>
+    @foreach($words as $word)
+
+        <div class="col-sm-12 alert {{$alerts[(rand()%3)]}}">
+            <div class="row ">
+                <div class="col-lg-10 ">
+
+                    <div class="alert alert-info">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Meaning</th>
+                                <th>English Definition</th>
+                                <th>pronunciation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><strong>{{$word->word}}</strong></td>
+                                <td> {{$word->per_def}}</td>
+                                <td> {{$word->eng_def}}</td>
+                                <td> {{$word->pronunciation->file_name}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+
+                    <div class="form-group">
+                        <img src="/images/{{$word->image->file_name}}" alt="">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Sentence</th>
+                        <th>Persian Definition</th>
+                        <th>Deleted Word</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($word->sentences as $sentence)
+
+                        <tr>
+                            <td><strong>{{$sentence->sentence_eng}}</strong></td>
+                            <td> {{$sentence->sentence_per}}</td>
+                            <td> {{$sentence->deleted_word}}</td>
+                            <td>
+                                {!! Form::open(['method'=>'DELETE' ,'action'=>['WordController@destroySentence' , $sentence->id]]) !!}
+                                {!! Form::submit('delete Sentence' , ['class'=>'btn btn-danger btn-block'])   !!}
+                                {!! Form::close() !!}
+                            </td>
+                        </tr>
+
+                    @endforeach
+                    </tbody>
+                </table>
+
+                <a href="/words/{{$word->id}}/sentence">
+                    <button type="button" class="btn btn-info btn-block">ADD</button>
+                </a>
+            </div>
+
+
+            <div class="alert alert-info">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Word</th>
+                        <th>Word Meaning</th>
+                        <th>Type</th>
+                        <th>Sentence</th>
+                        <th>Sentence Meaning</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    @foreach($word->wordForms as $wordForm)
+
+                        <tr>
+                            <td><strong>{{$wordForm->word}}</strong></td>
+                            <td><strong>{{$wordForm->word_def}}</strong></td>
+                            @if($wordForm->is_verb)
+                                <td> Verb</td>
+
+                            @elseif($wordForm->is_adv)
+                                <td> Adverb</td>
+
+                            @elseif($wordForm->is_noun)
+                                <td> Noun</td>
+
+                            @elseif($wordForm->is_adj)
+                                <td> Adjective</td>
+                            @endif
+                            <td> {{$wordForm->sentence}}</td>
+                            <td> {{$wordForm->sentence_per}}</td>
+                            <td>
+                                {!! Form::open(['method'=>'DELETE' ,'action'=>['WordController@destroyWordForm' , $wordForm->id]]) !!}
+                                {!! Form::submit('Delete Word Form' , ['class'=>'btn btn-danger btn-block'])   !!}
+                                {!! Form::close() !!}
+                            </td>
+                        </tr>
+
+                    @endforeach
+                    </tbody>
+                </table>
+
+                <a href="/words/{{$word->id}}/word_form">
+                    <button type="button" class="btn btn-info btn-block">ADD</button>
+                </a>
+
+
+            </div>
+
+        </div>
+
+    @endforeach
+
+
 
 @stop

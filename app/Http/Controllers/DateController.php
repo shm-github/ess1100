@@ -60,8 +60,29 @@ class DateController extends Controller
 
         $words = $date->words;
 
-        return view('admin.dates.show' ,compact('date' , 'words') );
+        $alerts=['alert-info' ,'alert-success' ,'alert-warning' ];
+
+
+        return view('admin.dates.show' ,compact('date' , 'words' ,'alerts') );
     }
+
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showWords($id)
+    {
+        $date = Date::find($id);
+
+        $words = $date->words;
+
+        return view('admin.dates.show_words' ,compact('date' , 'words') );
+    }
+
 
     /**
      * Show the form for editing the specified resource.

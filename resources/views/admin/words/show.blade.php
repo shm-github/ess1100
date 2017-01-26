@@ -5,7 +5,7 @@
 
     <div class="col-sm-12">
         <div class="row">
-            <div class="col-lg-6 ">
+            <div class="col-lg-10 ">
 
 
                 <div class="alert alert-info">
@@ -15,6 +15,7 @@
                             <th>Word</th>
                             <th>Meaning</th>
                             <th>English Definition</th>
+                            <th>pronunciation</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,6 +26,8 @@
                             <td> {{$word->per_def}}</td>
 
                             <td> {{$word->eng_def}}</td>
+
+                            <td> {{$word->pronunciation->file_name}}</td>
                         </tr>
 
                         </tbody>
@@ -33,7 +36,7 @@
 
 
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-2">
 
                 <div class="form-group">
                     <img src="/images/{{$word->image->file_name}}" alt="">

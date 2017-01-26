@@ -6,6 +6,7 @@
         <thead>
         <tr>
             <th>Week</th>
+            <th>Days Count</th>
             <th>Published</th>
             <th>update</th>
             <th>Add Date</th>
@@ -19,6 +20,8 @@
 
             <tr>
                 <td><strong>{{$week->week_number}}</strong></td>
+
+                <td>{{count($week->dates)}}</td>
 
                 @if($week->published($week))
                     <td> True</td>

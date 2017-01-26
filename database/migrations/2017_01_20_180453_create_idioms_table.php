@@ -14,12 +14,13 @@ class CreateIdiomsTable extends Migration {
 	{
 		Schema::create('idioms', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->integer('date_id')->index();
-			$table->string('idiom_eng');
-			$table->string('idiom_eng_def');
-			$table->string('idiom_per');
-			$table->string('idiom_per_def');
+			$table->increments('id'       );
+			$table->integer('date_id'      )->index();
+			$table->string( 'idiom_eng'    );
+			$table->string( 'idiom_eng_def');
+			$table->string( 'idiom_per'      );
+			$table->string( 'idiom_per_def' );
+			$table->string( 'image' );
 			$table->timestamps();
 		});
 	}

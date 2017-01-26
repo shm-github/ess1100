@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Date;
+use App\Idiom;
+use App\Main_context;
 use App\Sentence;
 use App\Word;
 use App\Pic;
@@ -37,6 +39,10 @@ class WordController extends Controller
     }
 
 
+    /**
+     * @param $wordId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function createSentence($wordId)
     {
 
@@ -46,11 +52,41 @@ class WordController extends Controller
     }
 
 
+    /**
+     * @param $wordId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function createWordForm($wordId)
     {
         $word = Word::findOrFail($wordId);
 
         return view('admin.words.create_word_form', compact('word'));
+    }
+
+
+    /**
+     * @param $dateId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param $wordId
+     */
+    public function createContext($dateId)
+    {
+        $date = Date::findOrFail($dateId);
+
+        return view('admin.words.main_context.create', compact('date'));
+    }
+
+
+    /**
+     * @param $dateId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param $wordId
+     */
+    public function createIdiom($dateId)
+    {
+        $date = Date::findOrFail($dateId);
+
+        return view('admin.words.idiom.create', compact('date'));
     }
 
 
@@ -120,12 +156,13 @@ class WordController extends Controller
         $word->pronunciation()->save($pronunciation);
 
 
-        redirect('dates');
+        return redirect('dates');
     }
 
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function storeSentence(Request $request)
     {
@@ -158,6 +195,7 @@ class WordController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function storeWordForm(Request $request)
     {
@@ -186,25 +224,108 @@ class WordController extends Controller
 
 
         if ($input['form_type'] == 1)
-            $wordForm['is_verb'] = true ;
+            $wordForm['is_verb'] = true;
 
         else if ($input['form_type'] == 2)
-            $wordForm['is_adj'] = true ;
+            $wordForm['is_adj'] = true;
 
         else if ($input['form_type'] == 3)
-            $wordForm['is_adv'] = true ;
+            $wordForm['is_adv'] = true;
 
         else if ($input['form_type'] == 4)
-            $wordForm['is_noun'] = true ;
+            $wordForm['is_noun'] = true;
 
 
         $word = Word::findOrFail($input['word_id']);
 
         $word->wordForms()->save(Word_form::create($wordForm));
 
-        return redirect('words/'. $input['word_id']);
+        return redirect('words/' . $input['word_id']);
 
     }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function storeContext(Request $request)
+    {
+
+        $this->validate($request, [
+            'date_id' => 'required',
+            'title_eng' => 'required',
+            'title_per' => 'required',
+            'context_per' => 'required',
+            'context_eng' => 'required'
+        ]);
+
+
+        $input = $request->all();
+
+
+        $context = [
+            'title_eng' => $input['title_eng'],
+            'title_per' => $input['title_per'],
+            'context_per' => $input['context_per'],
+            'context_eng' => $input['context_eng'],
+        ];
+
+
+        $date = Date::findOrFail($input['date_id']);
+
+        $date->context()->save(Main_context::create($context));
+
+        return redirect('dates');
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function storeIdiom(Request $request)
+    {
+
+        $this->validate($request, [
+            'idiom_eng' => 'required',
+            'idiom_eng_def' => 'required',
+            'idiom_per' => 'required',
+            'idiom_per_def' => 'required',
+            'image' => 'required'
+        ]);
+
+
+        $input = $request->all();
+
+
+        $imageFile = $request->file('image');
+        $name = $imageFile->getClientOriginalName();
+        $imageFile->move('idiom_images', $name);
+
+
+
+        $idiom = [
+            'idiom_eng' => $input ['idiom_eng'],
+            'idiom_eng_def' => $input['idiom_eng_def'],
+            'idiom_per' => $input['idiom_per'],
+            'idiom_per_def' => $input['idiom_per_def'],
+            'image' => $name ,
+        ];
+
+
+        $date = Date::findOrFail($input['date_id']);
+
+        $date->idiom()->save(Idiom::create($idiom));
+
+
+
+
+        return redirect('dates');
+
+    }
+
 
     /**
      * Display the specified resource.
@@ -275,5 +396,29 @@ class WordController extends Controller
         $wordForm->delete();
 
         return redirect('words/' . $wordId);
+    }
+
+
+    public function destroyIdiom($idiomId)
+    {
+        $idiom = Idiom::findOrFail($idiomId);
+
+//        $dateId = $idiom->date_id;
+
+        $idiom->delete();
+
+        return redirect('dates');
+    }
+
+
+    public function destroyContext($contextId)
+    {
+        $main = Main_context::findOrFail($contextId);
+
+//        $wordId = $main->date_id;
+
+        $main->delete();
+
+        return redirect('dates');
     }
 }
