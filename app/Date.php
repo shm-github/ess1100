@@ -10,6 +10,8 @@ class Date extends Model
 
     protected $fillable = ['day_number' , 'week_id'];
 
+    protected $hidden = [ 'word_id', 'created_at', 'updated_at'];
+
     public function week(){
         return $this->belongsTo('App\Week');
     }

@@ -13,4 +13,7 @@ class Main_context extends Model {
         'context_eng',
 ];
 
+    protected $hidden = [ 'word_id', 'created_at', 'updated_at'];
+
+
 }

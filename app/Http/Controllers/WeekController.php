@@ -65,6 +65,22 @@ class WeekController extends Controller
         return view('admin.weeks.show' ,compact('dates' , 'week') );
     }
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showReviews($id)
+    {
+        //
+        $week = Week::findOrFail($id);
+        $reviews = $week->reviews->all();
+
+        return view('admin.words.review.show_review', compact('reviews' , 'week'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

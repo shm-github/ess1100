@@ -7,6 +7,8 @@ class Word extends Model {
 	//
     protected $fillable = ['word' , 'date_id' ,'per_def' , 'eng_def'];
 
+    protected $hidden = [ 'word_id', 'created_at', 'updated_at'];
+
 
     public function date(){
         return $this->belongsTo('App\Date');

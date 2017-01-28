@@ -14,4 +14,7 @@ class Idiom extends Model {
         'image',
     ];
 
+    protected $hidden = ['id', 'word_id', 'created_at', 'updated_at'];
+
+
 }

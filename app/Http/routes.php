@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('home');
     });
 
+
 });
 
 
@@ -34,7 +35,7 @@ Route::group(['middleware' => 'isAdmin'], function () {
 
     Route::resource('/users', 'AdminUsersController');
 
-    Route::resource('updates', 'UpdateController');
+    Route::resource('/updates', 'UpdateController');
 
     Route::get('/home', 'HomeController@index');
 
@@ -45,9 +46,9 @@ Route::group(['middleware' => 'isAdmin'], function () {
     Route::resource('/dates', 'DateController' , ['except' => [
         'create'
     ]]);
-    Route::get('dates/create/{weekId}' , 'DateController@create');
+    Route::get('/dates/create/{weekId}' , 'DateController@create');
 
-    Route::get('dates/words/{dateId}' , 'DateController@showWords');
+    Route::get('/dates/words/{dateId}' , 'DateController@showWords');
 
 
 
@@ -57,39 +58,53 @@ Route::group(['middleware' => 'isAdmin'], function () {
         'create'
     ]]);
 
-    Route::get('words/create/{dateId}' , 'WordController@create');
+    Route::get('/words/create/{dateId}' , 'WordController@create');
 
-    Route::get('words/{wordId}/sentence' , 'WordController@createSentence');
+    Route::get('/words/{wordId}/sentence' , 'WordController@createSentence');
 
-    Route::get('words/{wordId}/word_form' , 'WordController@createWordForm');
+    Route::get('/words/{wordId}/word_form' , 'WordController@createWordForm');
 
-    Route::post('words/store/sentence' , 'WordController@storeSentence');
+    Route::post('/words/store/sentence' , 'WordController@storeSentence');
 
-    Route::post('words/store/word_form' , 'WordController@storeWordForm');
+    Route::post('/words/store/word_form' , 'WordController@storeWordForm');
 
 
-    Route::delete('words/{sentenceId}/sentence' , 'WordController@destroySentence');
+    Route::delete('/words/{sentenceId}/sentence' , 'WordController@destroySentence');
 
-    Route::delete('words/{WordFormId}/word_form' , 'WordController@destroyWordForm');
+    Route::delete('/words/{WordFormId}/word_form' , 'WordController@destroyWordForm');
 
 
     //main context and idiom routes
-    Route::get('words/create/context/{dateId}' , 'WordController@createContext');
+    Route::get('/words/create/context/{dateId}' , 'WordController@createContext');
 
-    Route::get('words/create/idiom/{dateId}' , 'WordController@createIdiom');
+    Route::get('/words/create/idiom/{dateId}' , 'WordController@createIdiom');
 
-    Route::post('words/store/context' , 'WordController@storeContext');
+    Route::post('/words/store/context' , 'WordController@storeContext');
 
-    Route::post('words/store/idiom' , 'WordController@storeIdiom');
+    Route::post('/words/store/idiom' , 'WordController@storeIdiom');
 
-    Route::delete('words/{contextId}/context' , 'WordController@destroyContext');
+    Route::delete('/words/{contextId}/context' , 'WordController@destroyContext');
 
-    Route::delete('words/{idiomId}/idiom' , 'WordController@destroyIdiom');
+    Route::delete('/words/{idiomId}/idiom' , 'WordController@destroyIdiom');
+
+
+
+    //review
+    Route::get('/words/create/review/{weekId}' , 'WordController@createReview');
+
+    Route::post('/words/store/review' , 'WordController@storeReview');
+
+    Route::get('/weeks/reviews/{weekId}' , 'WeekController@showReviews');
+
 });
 
 
 
 
+////////////////////////////// rest api routes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+Route::get('get/update/{updateId}' , 'UserRequestController@getUpdate');
 
 
 

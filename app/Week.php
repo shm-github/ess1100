@@ -8,6 +8,7 @@ class Week extends Model
     //
     protected $fillable = ['week_number', 'update_id'];
 
+    protected $hidden = [ 'word_id', 'created_at', 'updated_at'];
 
     public function updateVersion()
     {
@@ -28,5 +29,10 @@ class Week extends Model
 
     public function dates(){
         return $this->hasMany('App\Date');
+    }
+
+
+    public function reviews(){
+        return $this->hasMany('App\Review');
     }
 }

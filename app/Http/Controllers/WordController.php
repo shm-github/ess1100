@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Date;
 use App\Idiom;
 use App\Main_context;
+use App\Review;
 use App\Sentence;
+use App\Week;
 use App\Word;
 use App\Pic;
 use App\Pronounciation;
@@ -87,6 +89,26 @@ class WordController extends Controller
         $date = Date::findOrFail($dateId);
 
         return view('admin.words.idiom.create', compact('date'));
+    }
+
+
+    public function createReview($weekId)
+    {
+        $week = Week::findOrFail($weekId);
+
+        $days = $week->dates;
+
+        $words = array();
+        $idioms = array();
+
+        foreach ($days as $day) {
+
+            array_push($words, $day->words->all());
+            array_push($idioms, $day->idiom);
+        }
+
+
+        return view('admin.words.review.create', compact('words', 'idioms', 'week'));
     }
 
 
@@ -305,13 +327,12 @@ class WordController extends Controller
         $imageFile->move('idiom_images', $name);
 
 
-
         $idiom = [
             'idiom_eng' => $input ['idiom_eng'],
             'idiom_eng_def' => $input['idiom_eng_def'],
             'idiom_per' => $input['idiom_per'],
             'idiom_per_def' => $input['idiom_per_def'],
-            'image' => $name ,
+            'image' => $name,
         ];
 
 
@@ -320,9 +341,50 @@ class WordController extends Controller
         $date->idiom()->save(Idiom::create($idiom));
 
 
-
-
         return redirect('dates');
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function storeReview(Request $request)
+    {
+
+
+        $input = $request->all();
+
+        $week = Week::findOrFail($input['week_id']);
+
+
+        //remove all week reviews first
+        $reviews = $week->reviews->all();
+        foreach ($reviews as $review)
+            $review->delete();
+
+
+        //add all reviews to week
+
+        foreach ($input as $key => $value) {
+
+            if ($key == '_token')
+                continue;
+
+            if ($key == 'week_id')
+                continue;
+
+            $review = Review::create([
+                'word' => $key,
+                'definition' => $value
+            ]);
+
+            $week->reviews()->save($review);
+        }
+
+
+        return redirect('/weeks');
 
     }
 
@@ -339,6 +401,7 @@ class WordController extends Controller
         $word = Word::findOrFail($id);
         return view('admin.words.show', compact('word'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
